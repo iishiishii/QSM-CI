@@ -10,6 +10,7 @@ fi
 
 JSON_FILE="recons/${PIPELINE_NAME}/metrics.json"
 NIFTI_FILE="recons/${PIPELINE_NAME}/${PIPELINE_NAME}.nii.gz"
+README_FILE="README.md"
 
 DIRNAME=$(dirname "${NIFTI_FILE}")
 BASENAME=$(basename "${NIFTI_FILE}")
@@ -109,3 +110,21 @@ else
     fi
 fi
 
+# Values to append to the next row
+new_values=("$PIPELINE_NAME" $(jq '.HFEN' "$JSON_FILE") $(jq '.NMI' "$JSON_FILE") $(jq '.RMSE' "$JSON_FILE") $(jq '.MAD' "$JSON_FILE") $(jq '.CC[0]' "$JSON_FILE") $(jq '.CC[1]' "$JSON_FILE") $(jq '.GXE' "$JSON_FILE") $(jq '.NRMSE' "$JSON_FILE") $(jq '.XSIM' "$JSON_FILE"))
+
+# Read the content of the file
+file_content=$(cat "$README_FILE")
+
+# Find the position of the last row in the table
+last_row_start=$(echo "$file_content" | grep -n '| ---' | tail -n 1 | cut -d ':' -f 1)
+last_row_end=$((last_row_start + 1))
+
+# Create a string with the new values
+new_row=$(IFS='|'; echo "| ${new_values[*]} |")
+
+# Insert the new row after the last row in the table
+updated_content=$(echo "$file_content" | sed "${last_row_end}a $new_row")
+
+# Write the updated content back to the file
+echo "$updated_content" > "$README_FILE"
