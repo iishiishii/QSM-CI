@@ -29,6 +29,13 @@ Submitted pipelines are evaluated using the following quantitative metrics:
 
 In addition to quantitative metrics, qualitative evaluation is conducted through a visual comparison platform hosted at https://elocompare.b4a.app/. Users can view and compare the anonymized results from different pipelines and assist in ranking their preferences.
 
+# Updated Results from github workflow ([raw data in action summary](https://github.com/QSMxT/QSM-CI/actions/workflows/auto-run.yml))
+
+| Alogrithm | HFEN | NMI | RMSE | MAD | CC1 | CC2 | GXE | NRMSE | XSIM |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| pdf | 0.9999869686638422 | 1.026774401983154 | 0.022854247572474947 | 0.016815698770000134 | 0.49440351945422856 | 0 | 0.6508758857252964 | 93.38230891323714 | 0.17689469437817734 |
+
+
 # Submitting your algorithm/pipeline
 
 To participate, follow these steps:
@@ -207,4 +214,3 @@ $ cat recons/metrics.json
     "GXE": 0.6562468317212361
 }
 ```
-
