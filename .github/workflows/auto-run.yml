@@ -5,7 +5,7 @@ on:
     paths:
       - algos/*.sh
     branches:
-      - main
+      - update-readme
 
 jobs:
   list-algos:
