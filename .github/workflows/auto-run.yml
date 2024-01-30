@@ -67,15 +67,14 @@ jobs:
   update-readme:
     needs: build-apps
     runs-on: ubuntu-22.04
-    with:
-      metrics: ${{ needs.build-apps.summary }}
+    if: ${{ needs.build-apps.summary != '[]' }}
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
       - name: Edit readme
         run:
-          echo "${{ inputs.summary }}"
+          echo ${{ fromJson(needs.build-apps.summary) }}
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5
         with:
