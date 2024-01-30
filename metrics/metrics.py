@@ -273,15 +273,11 @@ def save_as_markdown(metrics_dict, filepath):
     filepath : str
         The path to the file to save the results.
     """
+    pipeline = os.path.basename(os.path.dirname(filepath))
     with open(filepath, 'w') as file:
-        file.write("| Metric | Value |\n")
-        file.write("|--------|-------|\n")
-        for key, value in metrics_dict.items():
-            if isinstance(value, tuple) and len(value) == 2:  # Assuming it's the PearsonRResult
-                file.write(f"| {key} correlation | {value[0]:.6f} |\n")
-                file.write(f"| {key} p-value | {value[1]:.6f} |\n")
-            else:
-                file.write(f"| {key} | {value:.6f} |\n")
+        file.write("| Alogrithm | HFEN | NMI | RMSE | MAD | CC1 | CC2 | GXE | NRMSE | XSIM |\n")
+        file.write("| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n")
+        file.write(f"| {pipeline} | {metrics_dict['HFEN']:.6f} | {metrics_dict['NMI']:.6f} | {metrics_dict['RMSE']:.6f} | {metrics_dict['MAD']:.6f} | {metrics_dict['CC'][0]:.6f} | {metrics_dict['CC'][1]:.6f} | {metrics_dict['GXE']:.6f} | {metrics_dict['NRMSE']:.6f} | {metrics_dict['XSIM']:.6f} |\n")
 
 def save_as_json(metrics_dict, filepath):
     """

@@ -32,7 +32,7 @@ echo "[INFO] Starting QSMxT container"
 sudo docker start qsmxt-container
 
 echo "[INFO] Starting QSM reconstruction"
-sudo docker exec qsmxt-container bash -c "qsmxt /tmp/bids/ /tmp/qsmxt_output --premade fast --bf_algorithm pdf --qsm_algorithm tv --auto_yes --use_existing_masks"
+sudo docker exec qsmxt-container bash -c "qsmxt /tmp/bids/ /tmp/qsmxt_output --premade fast --bf_algorithm pdf --qsm_algorithm tv --auto_yes --use_existing_masks" 
 
 echo "[INFO] Collecting QSMxT results"
 if ls qsmxt_output/qsm/*.nii 1> /dev/null 2>&1; then

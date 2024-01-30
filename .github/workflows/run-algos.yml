@@ -12,6 +12,8 @@ jobs:
   recon_and_evaluate:
     if: ${{ inputs.algo_list != '[]' }}
     runs-on: ${{ fromJSON(inputs.runner) }}
+    outputs:
+      metrics: ${{ steps.reconstruct_evaluate.summary }}
     strategy:
       matrix:
         algo: ${{ fromJSON(inputs.algo_list) }}
@@ -23,6 +25,7 @@ jobs:
         
       shell: bash
     - name: Reconstruct and evaluate
+      id: reconstruct_evaluate
       env:
         OSF_TOKEN: ${{ secrets.OSF_TOKEN }}
         OS_PASSWORD: ${{ secrets.SWIFT_OS_PASSWORD }}
@@ -53,6 +56,5 @@ jobs:
           recons/${PIPELINE_NAME}/*.nii* \
           --roi "bids/derivatives/qsm-forward/sub-1/anat/sub-1_mask.nii"
         cat recons/${PIPELINE_NAME}/*.md* >> $GITHUB_STEP_SUMMARY
-
-        ./upload.sh
+        
 
