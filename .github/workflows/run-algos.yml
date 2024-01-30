@@ -42,7 +42,7 @@ jobs:
         pip install qsm-forward==0.19 osfclient argparse numpy nibabel scikit-learn scikit-image scipy
         export PATH=$PATH:/home/runnerx/.local/bin
 
-        osf --project 9jc42 fetch data.tar
+        osf --project grmfy fetch data.tar
         tar xf data.tar
         rm data.tar
         qsm-forward head data/ bids
